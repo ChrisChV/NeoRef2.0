@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include "Referido.h"
 
 using namespace std;
 
