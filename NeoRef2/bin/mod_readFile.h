@@ -43,5 +43,3 @@ vector<Referido> allRef(string file){
 		return res;
 	}
 }
-
-
