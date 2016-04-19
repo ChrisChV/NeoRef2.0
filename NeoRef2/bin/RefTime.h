@@ -55,5 +55,5 @@ Day getDay(RefDate date){
 	date = date / 100;
 	int mes = date % 100;
 	int year = date / 100;
-	return dia + getMes(mes) + (year % 100) + ((year % 100) / 4) + 6;
+	return (dia + getMes(mes) + (year % 100) + ((year % 100) / 4) + 6) % 7;
 }
