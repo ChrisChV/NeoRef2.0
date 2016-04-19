@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-
 void ProcesarClick(string Dia_de_Comparacion, string file){
 	try{
 		RefDate today = getActualTime();
@@ -22,9 +20,16 @@ void ProcesarClick(string Dia_de_Comparacion, string file){
 		MYSQL_ROW row;
 		for(Referidos r : ref){
 			if(today - d == r.lastClick){
-				string query = "select SemanaBin from Referidos where idReferidos = " + r.idRef;
+				string query = "select SemanaBin from Referidos where idReferidos = " + r.idRef + ";";
 				mysql_query(connect,query.c_str());
 				res_set = mysql_store_result(connect);
+				row = mysql_fetch_row(res_set);
+				SemanaBin semTemp = row[0];
+				Day d = getDay(today);
+				semTemp[d] = '1';
+				string query2 = "update Referidos set SemanaBin = '" + semTemp + "' where idReferidos = " + r.idRef + ";";
+				mysql_query(connect,query.c_str());
+				string query3 = "update Referidos set Cliks = CLiks + 4 where idReferidos = " + r.idRef + ";";
 			}
 		}
 	}
