@@ -32,6 +32,7 @@ void ProcesarClick(string Dia_de_Comparacion, string file){
 				string query3 = "update Referidos set Cliks = CLiks + 4 where idReferidos = " + r.idRef + ";";
 			}
 		}
+		mysql_close(connect);
 	}
 }
 
