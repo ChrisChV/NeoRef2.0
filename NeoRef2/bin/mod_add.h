@@ -93,3 +93,36 @@ void add_new(string file){
 	}
 	mysql_close(connect);
 }
+
+void renovacion(string file, RefDate ini, int dias){
+	vector<Referido> vec = allRef(file);
+	MYSQL * connect  = getConnect();
+	MYSQL_RES * res_set;
+	MYSQL_ROW row;
+	RefDate fechafin = 0;
+	for(Referido r : vec){
+		if(ini == r.fechaIni){
+			if(fechafin == 0){
+				RefDate date = r.fechaIni;
+				int day = date % 100;
+				date = date / 100;
+				int mes = date % 100;
+				int year = date / 100;
+
+				int diasMes = getDiasMes(mes, year);
+				int day = day + dias;
+				if(day > diasMes){
+					day = day % diasMes;
+					mes++;
+					if(mes > 12){
+						mes = mes % 12;
+						year++;
+					}
+				}
+
+				fechafin = (year * 10000) + (mes * 100) + day;
+			}
+		}
+		string query1 = "update Referido set FechaFin = " + fechafin + "where idReferidos = " + r.idReferidos + ";";
+	}
+}

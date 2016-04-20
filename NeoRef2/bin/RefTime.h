@@ -38,6 +38,7 @@ int getDiasMes(int mes, int year){
 	case OCTUBRE: return 31;
 	case NOVIEMBRE: return 30;
 	case DICIEMBRE: return 31;
+	default: return 0;
 }
 
 int getMes(int mes){
