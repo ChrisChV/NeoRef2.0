@@ -21,7 +21,24 @@ int Noviembre = 3;
 int Diciembre = 5;
 
 enum Dias{LUNES,MARTES,MIERCOLES,JUEVES,VIERNES,SABADO,DOMINGO};
-enum Meses{ENERO,FEBRERO,MARZO,ABRIL,MAYO,JUNIO,JULIO,AGOSTO,SETIEMBRE,OCTUBRE,NOVIEMBRE,DICIEMBRE};
+enum Meses{ENERO = 1,FEBRERO,MARZO,ABRIL,MAYO,JUNIO,JULIO,AGOSTO,SETIEMBRE,OCTUBRE,NOVIEMBRE,DICIEMBRE};
+
+int getDiasMes(int mes, int year){
+	case ENERO: return 31;
+	case FEBRERO:
+		if(year % 4 == 0) return 29;
+		return 28;
+	case MARZO: return 31;
+	case ABRIL: return 30;
+	case MAYO: return 31;
+	case JUNIO: return 30;
+	case JULIO: return 31;
+	case AGOSTO: return 31;
+	case SETIEMBRE: return 30;
+	case OCTUBRE: return 31;
+	case NOVIEMBRE: return 30;
+	case DICIEMBRE: return 31;
+}
 
 int getMes(int mes){
 	switch(mes){
