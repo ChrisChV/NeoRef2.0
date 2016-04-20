@@ -22,7 +22,16 @@ void add_all(string file){
 			int mes = date % 100;
 			int year = date / 100;
 
-			//TODO
+			int diasMes = getDiasMes(mes, year);
+			int day = day + 30;
+			if(day > diasMes){
+				day = day % diasMes;
+				mes++;
+				if(mes > 12){
+					mes = mes % 12;
+					year++;
+				}
+			}
 
 			RefDate fechafin = (year * 10000) + (mes * 100) + day;
 			string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + r.fechaIni + "," + fechafin + ");";
@@ -58,7 +67,16 @@ void add_new(string file){
 				int mes = date % 100;
 				int year = date / 100;
 
-				//TODO
+				int diasMes = getDiasMes(mes, year);
+				int day = day + 30;
+				if(day > diasMes){
+					day = day % diasMes;
+					mes++;
+					if(mes > 12){
+						mes = mes % 12;
+						year++;
+					}
+				}
 
 				fechafin = (year * 10000) + (mes * 100) + day;
 			}
