@@ -1,0 +1,10 @@
+NeoRef 2.0
+
+Created by Xnpio
+
+Program to NeoBux.
+
+Comands:
+
+   add 'file' -> It serves to add referrals taking with reference the day today.
+   add all 'file' -> It serve to add all referrals of the file independently of the day.

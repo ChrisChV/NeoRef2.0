@@ -1,9 +1,12 @@
+#ifndef REFERIDO_H
+#define REFERIDO_H
+
 #include <iostream>
 
 using namespace std;
 
-#define FECHA_NULL 20130306;
-#define ID_NULL 0;
+int FECHA_NULL = 20130306;
+string ID_NULL = "0";
 #define SEMANA_NULL "0000000"
 
 typedef string ID;
@@ -14,8 +17,7 @@ typedef string SemanaBin;
 class Referido{
 	public:
 		Referido();
-		Referido(ID id, RefDate ini, RefDate lastClick);
-	private:
+		Referido(ID id, RefDate ini, RefDate lastClick, SemanaBin semanaBin);
 		ID idRef;
 		RefDate fechaIni;
 		RefDate lastClick;
@@ -24,7 +26,7 @@ class Referido{
 
 
 Referido::Referido(){
-	ID_NULL = 0;
+	idRef = ID_NULL;
 	fechaIni = FECHA_NULL;
 	lastClick = FECHA_NULL; 
 	semanaBin = SEMANA_NULL;
@@ -36,3 +38,5 @@ Referido::Referido(ID id, RefDate ini, RefDate lastClick, SemanaBin semanaBin){
 	this-> lastClick = lastClick;
 	this-> semanaBin = semanaBin;
 }
+
+#endif

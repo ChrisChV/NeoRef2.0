@@ -1,3 +1,6 @@
+#ifndef REFTIME_H
+#define REFTIME_H
+
 #include <iostream>
 #include <ctime>
 #include "Referido.h"
@@ -24,21 +27,23 @@ enum Dias{LUNES,MARTES,MIERCOLES,JUEVES,VIERNES,SABADO,DOMINGO};
 enum Meses{ENERO = 1,FEBRERO,MARZO,ABRIL,MAYO,JUNIO,JULIO,AGOSTO,SETIEMBRE,OCTUBRE,NOVIEMBRE,DICIEMBRE};
 
 int getDiasMes(int mes, int year){
-	case ENERO: return 31;
-	case FEBRERO:
-		if(year % 4 == 0) return 29;
-		return 28;
-	case MARZO: return 31;
-	case ABRIL: return 30;
-	case MAYO: return 31;
-	case JUNIO: return 30;
-	case JULIO: return 31;
-	case AGOSTO: return 31;
-	case SETIEMBRE: return 30;
-	case OCTUBRE: return 31;
-	case NOVIEMBRE: return 30;
-	case DICIEMBRE: return 31;
-	default: return 0;
+	switch(mes){
+		case ENERO: return 31;
+		case FEBRERO:
+			if(year % 4 == 0) return 29;
+			return 28;
+		case MARZO: return 31;
+		case ABRIL: return 30;
+		case MAYO: return 31;
+		case JUNIO: return 30;
+		case JULIO: return 31;
+		case AGOSTO: return 31;
+		case SETIEMBRE: return 30;
+		case OCTUBRE: return 31;
+		case NOVIEMBRE: return 30;
+		case DICIEMBRE: return 31;
+		default: return 0;
+	}
 }
 
 int getMes(int mes){
@@ -73,5 +78,7 @@ Day getDay(RefDate date){
 	date = date / 100;
 	int mes = date % 100;
 	int year = date / 100;
-	return (dia + getMes(mes) + (year % 100) + ((year % 100) / 4) + 6) % 7;
+	return (day + getMes(mes) + (year % 100) + ((year % 100) / 4) + 6) % 7;
 }
+
+#endif

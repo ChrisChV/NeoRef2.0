@@ -1,5 +1,8 @@
+#ifndef MOD_ADD_H
+#define MOD_ADD_H
+
 #include <iostream>
-#include "mod_readfile.h"
+#include "mod_readFile.h"
 #include "connector.h"
 #include "RefTime.h"
 
@@ -11,19 +14,19 @@ void add_all(string file){
 	MYSQL_RES * res_set;
 	MYSQL_ROW row;
 	for(Referido r : vec){
-		string query = "select idGrupoRef from GrupoRef where FechaIni = " + r.fechaIni + ";";
+		string query = "select idGrupoRef from GrupoRef where FechaIni = " + to_string(r.fechaIni) + ";";
 		mysql_query(connect,query.c_str());
 		res_set = mysql_store_result(connect);
 		unsigned int rows = mysql_num_rows(res_set);
 		if(rows == 0){
-			RefDate date = r.fechaIni
+			RefDate date = r.fechaIni;
 			int day = date % 100;
 			date = date / 100;
 			int mes = date % 100;
 			int year = date / 100;
 
 			int diasMes = getDiasMes(mes, year);
-			int day = day + 30;
+			day = day + 30;
 			if(day > diasMes){
 				day = day % diasMes;
 				mes++;
@@ -34,17 +37,18 @@ void add_all(string file){
 			}
 
 			RefDate fechafin = (year * 10000) + (mes * 100) + day;
-			string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + r.fechaIni + "," + fechafin + ");";
+			string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + to_string(r.fechaIni) + "," + to_string(fechafin) + ");";
 			mysql_query(connect,query2.c_str());
 			string query3 = "select idGrupoRef from GrupoRef order by idGrupoRef desc limit 1;";
 			mysql_query(connect,query3.c_str());
 			res_set = mysql_store_result(connect);
 			row = mysql_fetch_row(res_set);
-			string query4 = "insert into Referido values (" + r.idRef + ",0,0000000," + row[0] + ");";
+			string query4 = "insert into Referidos values ('" + r.idRef + "',0,'0000000'," + row[0] + ");";
 			mysql_query(connect,query4.c_str());
 		}
 		else{
-			string query5= "insert into Referido values (" + r.idRef + ",0,0000000," + row[0] + ");";
+			row = mysql_fetch_row(res_set);
+			string query5= "insert into Referidos values ('" + r.idRef + "',0,'0000000'," + row[0] + ");";
 			mysql_query(connect,query5.c_str());
 		}
 	}
@@ -68,7 +72,7 @@ void add_new(string file){
 				int year = date / 100;
 
 				int diasMes = getDiasMes(mes, year);
-				int day = day + 30;
+				day = day + 30;
 				if(day > diasMes){
 					day = day % diasMes;
 					mes++;
@@ -80,13 +84,13 @@ void add_new(string file){
 
 				fechafin = (year * 10000) + (mes * 100) + day;
 			}
-			string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + r.fechaIni + "," + fechafin + ");";
+			string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + to_string(r.fechaIni) + "," + to_string(fechafin) + ");";
 			mysql_query(connect,query2.c_str());
 			string query3 = "select idGrupoRef from GrupoRef order by idGrupoRef desc limit 1;";
 			mysql_query(connect,query3.c_str());
 			res_set = mysql_store_result(connect);
 			row = mysql_fetch_row(res_set);
-			string query4 = "insert into Referido values (" + r.idRef + ",0,0000000," + row[0] + ");";
+			string query4 = "insert into Referidos values ('" + r.idRef + "',0,'0000000'," + row[0] + ");";
 			mysql_query(connect,query4.c_str());
 			
 		}
@@ -110,7 +114,7 @@ void renovacion(string file, RefDate ini, int dias){
 				int year = date / 100;
 
 				int diasMes = getDiasMes(mes, year);
-				int day = day + dias;
+				day = day + dias;
 				if(day > diasMes){
 					day = day % diasMes;
 					mes++;
@@ -123,6 +127,8 @@ void renovacion(string file, RefDate ini, int dias){
 				fechafin = (year * 10000) + (mes * 100) + day;
 			}
 		}
-		string query1 = "update Referido set FechaFin = " + fechafin + "where idReferidos = " + r.idReferidos + ";";
+		string query1 = "update Referidos set FechaFin = " + to_string(fechafin) + "where idReferidos = '" + r.idRef + "';";
 	}
 }
+
+#endif

@@ -1,9 +1,12 @@
+#ifndef MOD_READFILE_H
+#define MOD_READFILE_H
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include "Referido.h"
 
-using namspace std;
+using namespace std;
 
 Referido stringToReferido(string line){
 	int estado = 0;
@@ -24,22 +27,22 @@ Referido stringToReferido(string line){
 			estado++;
 		}
 	}
-	return Referido(id,ini,lastClick);
+	return Referido(id,ini,lastClick,SEMANA_NULL);
 }
 
 vector<Referido> allRef(string file){
-	try{
-		ifstream archivo(file.c_str());
-		if(archivo.fail()){
-			string e = "EL archivo " + file + " no existe o no se puede abrir";
-			throw(e);
-		}
-		vector<Referido> res;
-		char line[120];
-		while(archivo.getline(line,120)){
-			string temp(line);
-			res.push_bakc(stringToReferido(temp));
-		}
-		return res;
+	ifstream archivo(file.c_str());
+	if(archivo.fail()){
+		string e = "EL archivo " + file + " no existe o no se puede abrir";
+		throw(e);
 	}
+	vector<Referido> res;
+	char line[120];
+	while(archivo.getline(line,120)){
+		string temp(line);
+		res.push_back(stringToReferido(temp));
+	}
+	return res;
 }
+
+#endif
