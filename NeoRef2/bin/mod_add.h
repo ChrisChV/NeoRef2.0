@@ -81,11 +81,10 @@ void add_new(string file){
 						year++;
 					}
 				}
-
 				fechafin = (year * 10000) + (mes * 100) + day;
+				string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + to_string(r.fechaIni) + "," + to_string(fechafin) + ");";
+				mysql_query(connect,query2.c_str());
 			}
-			string query2 = "insert into GrupoRef(FechaIni,FechaFin) values (" + to_string(r.fechaIni) + "," + to_string(fechafin) + ");";
-			mysql_query(connect,query2.c_str());
 			string query3 = "select idGrupoRef from GrupoRef order by idGrupoRef desc limit 1;";
 			mysql_query(connect,query3.c_str());
 			res_set = mysql_store_result(connect);
