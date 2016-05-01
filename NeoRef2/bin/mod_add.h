@@ -111,7 +111,6 @@ void renovacion(string file, RefDate ini, int dias){
 				date = date / 100;
 				int mes = date % 100;
 				int year = date / 100;
-
 				int diasMes = getDiasMes(mes, year);
 				day = day + dias;
 				if(day > diasMes){
@@ -122,12 +121,20 @@ void renovacion(string file, RefDate ini, int dias){
 						year++;
 					}
 				}
-
 				fechafin = (year * 10000) + (mes * 100) + day;
+				string query2 = "select idGrupoRef from Referidos wher idReferidos = '" + r.idRef + "';";
+				mysql_query(connect,query2.c_str());
+				res_set = mysql_store_result(connect);
+				row = mysql_fetch_row(res_set);
+				string temp(row[0]);
+				string query1 = "update GrupoRef set FechaFin = " + to_string(fechafin) + "where idGrupoRef = " + temp + ";";
+				mysql_query(connect,query1.c_str());
+				break;
 			}
 		}
-		string query1 = "update Referidos set FechaFin = " + to_string(fechafin) + "where idReferidos = '" + r.idRef + "';";
+		
 	}
+	mysql_close(connect);
 }
 
 #endif

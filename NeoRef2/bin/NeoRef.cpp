@@ -2,6 +2,7 @@
 #include "mod_add.h"
 #include "mod_diario.h"
 #include "mod_delete.h"
+#include "mod_dom.h"
 
 using namespace std;
 
@@ -52,6 +53,32 @@ int main(int argc, char *argv[]){
 			if(argc > 3)  throw(ee);
 			deleteGrupoRef();
 			cout<<"Se eliminaron los referidos correctamente"<<endl;
+		}
+		else if(fun == "dom"){
+			if(argc > 3) throw(ee);
+			generarLista();
+			cout<<"La lista se ha generado correctament"<<endl;
+		}
+		else if(fun == "reno"){
+			if(argc < 3){
+				string e = "El comando reno debe tener la ruta del archivo, el dia de inicio y los dias";
+				throw(e);
+			}
+			if(argc < 4){
+				string e = "El comando reno debe tener el dia de inicio y los dias";
+				throw(e);
+			}
+			if(argc < 5){
+				string e = "El comando reno debe tener los dias";
+				throw(e);
+			}
+			if(argc > 5) throw(ee);
+			string file(argv[3]);
+			string date(argv[4]);
+			string dias(argv[5]);
+			renovacion(file,stoi(date),stoi(dias));
+			cout<<"La renovacion se realizó correctamente"<<endl;
+
 		}
 	}
 	catch(string e){cout<<e<<endl;}
